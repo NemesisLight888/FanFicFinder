@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fan Fiction Finder 2.1</title>
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Heart_coraz%C3%B3n.svg/768px-Heart_coraz%C3%B3n.svg.png" type="image/png">
+  <style>
+    :root {
+      --bg: #1e1e2f;
+      --text: #f0f0f0;
+      --accent: #ff82a9;
+    }
+
+    body.light {
+      --bg: #ffffff;
+      --text: #222222;
+      --accent: #d1005d;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    h1 {
+      color: var(--accent);
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: #f4f4f4;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--accent);
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .results {
+      margin-top: 30px;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .results a {
+      color: #9dcfff;
+      display: block;
+      margin: 8px 0;
+      text-decoration: none;
+    }
+
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 14px;
+      background: none;
+      border: 2px solid var(--accent);
+      border-radius: 20px;
+      padding: 6px 12px;
+      color: var(--accent);
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-theme" onclick="toggleTheme()">Toggle Theme</button>
+  <h1>FanFicFinder 2.0</h1>
+  <p>Search fanfiction using AO3 or Tumblr</p>
+
+  <h3>AO3 Advanced Search</h3>
+  <input type="text" id="fandom" placeholder="Fandom (e.g. Call of Duty)">
+  <input type="text" id="character" placeholder="Character(s) (e.g. Ghost, Konig)">
+  <button onclick="searchAO3()">Search AO3</button>
+
+  <h3>Tumblr Fanfic Search</h3>
+  <input type="text" id="tumblrQuery" placeholder="e.g. Raiden x Reader fanfic">
+  <button onclick="searchTumblr()">Search Tumblr</button>
+
+  <div class="results" id="results"></div>
+
+  <div class="footer">Built by Nemesis Light</div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("light");
+    }
+
+    function searchAO3() {
+      const fandom = document.getElementById("fandom").value;
+      const character = document.getElementById("character").value;
+      if (!fandom || !character) return;
+
+      const ao3Url = `https://archiveofourown.org/works/search?work_search[fandom_names]=${encodeURIComponent(fandom)}&work_search[character_names]=${encodeURIComponent(character)}`;
+      document.getElementById("results").innerHTML = `<a href="${ao3Url}" target="_blank">🔗 View AO3 Results</a>`;
+    }
+
+    function searchTumblr() {
+      const query = document.getElementById("tumblrQuery").value;
+      if (!query) return;
+
+      const tumblrUrl = `https://www.google.com/search?q=site%3Atumblr.com+${encodeURIComponent(query + " fanfic")}`;
+      document.getElementById("results").innerHTML = `<a href="${tumblrUrl}" target="_blank">🔗 View Tumblr Fanfics</a>`;
+    }
+  </script>
+</body>
+</html>
